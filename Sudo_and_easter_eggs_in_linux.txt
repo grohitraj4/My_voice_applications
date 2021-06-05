@@ -1,0 +1,52 @@
+
+Easter eggs in Linux(ubuntu)
+Sometimes we get bored of studying and coding, then we need something for fun.
+
+Ubuntu has not been left out. Some truly amusing Easter Eggs have been created for our beloved operating system over the years. Here are some of the easter eggs -- with how to achieve them.
+
+1. Apt-get Cows
+
+On Ubuntu, the apt-get package manager has had an embedded easter egg for a long time now.
+
+To see your easter egg, first login to your ubuntu virtual machine and type the below commands in the terminal. I will not add the screenshot :) try yourself.
+
+sudo apt-get moo
+
+
+2. Aptitude Cows
+
+With apt-get's affinity for cows, users may be curious as to whether aptitude(run the command sudo apt install aptitude if aptitude is not installed), another apt tool, also implements a fun easter egg.
+
+Log into your Ubuntu virtual machine and try this
+
+aptitude moo
+Now add verbosity (-v) in command and the check the output.
+
+aptitude -v moo
+and you are not satisfied with above answer then add one more v in command.
+
+aptitude -vv moo
+You can continue adding v until you find something interesting.
+
+
+
+3. Fun with Cowsay and Fortune
+
+If you need some more cheap amusement at the command line and didn't get your fill of cows from the "apt" easter egg, you can download cowsay and fortune.
+
+Log into your ubuntu virtual machine and type the below command to install cowsay and fortune.
+
+sudo apt-get install fortune cowsay
+Cowsay inserts any input into a word bubble and draws an ASCII cow to talk to you:
+
+cowsay "hello, I don't know who am I ?" 
+The fortune program spits out quotations, fortunes, jokes, nonsense that can be piped into cowsay:
+
+Type the below command.
+
+fortune  | cowsay 
+If you're not too fond of cows, you can get other characters as well:
+
+fortune | cowsay -f tux
+
+%%BoLt_IoT_Voice_Application_training%%

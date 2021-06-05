@@ -1,0 +1,188 @@
+To install the tool on your linux desktop, open the terminal and type the following command:
+
+sudo apt-get install curl -y
+Next, in the terminal type the following command:
+
+curl -H "Accept: application/json" https://icanhazdadjoke.com/
+
+Making API Requests in Python:
+
+If you use pip3 to manage your Python packages, you can install requests using the following command in the terminal:
+
+pip3 install requests
+
+Once you’ve installed the library, you’ll need to import it. Let’s start with that important step. First let us enter the Python interpreter by typing python3, and then inside the interpreter type the following command: 
+
+import requests
+
+Making Our First API Request:
+
+Let use the get() function in the python interpreter:
+
+response = requests.get(“https://icanhazdadjoke.com”, headers={”Accept”=”application/json”})
+
+This stores the API response on a variable named response. You can now check the status code of the request by typing the following command:
+
+print(response.status_code)
+If you see 200 that means your request succeeded and you shall be able to see the joke in the response.
+
+Since we requested the data to be returned in JSON format, we can use the json() method to see the JSON data:
+
+print(response.json())
+
+As you can see, you will see all the parameters returned by the API.
+
+Now, if you want to retrieve only the joke from the response, then you can type:
+
+print(response.json()[‘joke’])
+
+
+This will print out the joke as a text.
+
+Here is the code to fetch the joke from the jokes API.
+
+import requests
+response = requests.get(‘https://icanhazdadjoke.com’, headers={‘Accept’:’application/json’})
+joke = response.json()[‘joke’]
+print(joke)
+
+You can type this code in a file called, jokes.py and then run the code by typing python3 joke.py  in the terminal to get a new joke in response, every time.
+
+Now you have the code to fetch the joke as a text, all you need to do is use this text and feed it to the text to speech engine 
+
+Open the jokes.py by typing nano jokes.py and add the below code 
+
+import requests
+
+import pyttsx3
+
+
+
+engine = pyttsx3.init()
+
+engine.setProperty(‘rate’, 175)
+
+response = requests.get(‘https://icanhazdadjoke.com’, headers={‘Accept’:’application/json’})
+
+Joke = response.json()[‘joke’]
+
+print(joke)
+
+engine.say(joke)
+
+engine.runAndWait()
+
+engine.stop()
+
+
+
+Now, run the code and you will be able to hear your code speak the joke for you.
+
+If you notice, you can create a separate method/function for using the text-to-speech engine. So, let us define a separate method called text_to_speech with an argument text and define the commands into it
+
+def text_to_speech(text):
+  engine.say(text)
+  engine.runAndWait()
+  engine.stop()
+
+
+This method contains all the commands required to convert text to speech in one place. Now all we need to do is call the method by specifying text_to_speech(text_to_convert)
+
+This is how the final code will be:
+
+This is how the final code will be:
+
+
+
+import requests
+
+import pyttsx3
+
+
+
+engine = pyttsx3.ini()
+
+engine.setProperty(‘rate’, 175)
+
+
+
+def text_to_speech(text):
+
+engine.say(text)
+
+engine.runAndWait()
+
+engine.stop()
+
+
+
+response = requests.get(‘https://icanhazdadjoke.com’, headers={‘Accept’:’application/json’})
+
+joke = response.json()[‘joke’]
+
+print(joke)
+
+text_to_speech(joke)
+
+
+
+To make this more interactive let us add the speech recognition module as well:
+
+Let us import the Speech Recognition module and initialise the recognizer and Microphone
+
+import speech_recognition as sr
+r = sr.Recognizer()
+mic = sr.Microphone()
+
+
+Next, let us define a method take_input() to take the voice input.
+
+
+
+def take_input():
+  with mic as source:  
+  r.adjust_for_ambient_noise(source)
+  audio = r.listen(source)
+  
+speech = r.recognize_google(audio)  
+return speech  
+
+
+This function will return what the user said as a string.
+
+
+
+You have only defined the function. You now have to call it, for that add the following code to the existing code:
+
+print(“Waiting for input:”)
+input = take_input()
+print(input + “\n”)
+There you go, your code is now able to listen to the user. Next, we need to link this such that the Jokes API is call only when the user says a particular string, say for example, joke or funny etc.
+
+For that we will enclose the Jokes API part and the call to the text-to-speech method call in a if condition as follows:
+
+
+
+if “joke” in input or “funny” in input:
+
+response = requests.get(‘https://icanhazdadjoke.com’, headers={‘Accept’:’application/json’})
+
+joke = response.json()[‘joke’]
+
+print(joke)
+
+text_to_speech((joke)
+
+
+
+if “close” in input or “quit” in input:
+
+engine.stop()
+
+exit()
+
+The above code makes sure that the request to the jokes API is only made if the user utters the word joke or funny in their sentence. If they utter close or quit then the code stops executing.
+
+Next if you want this code to prompt the user endlessly until they say close or stop then you can add the above code inside a while loop as follows
+
+
